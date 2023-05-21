@@ -46,7 +46,7 @@ describe('GmFormComponent', () => {
         "hidden": "true",
         "mandatory": false
       }
-    ]
+    ] as any;
     fixture.detectChanges();
   });
 
@@ -57,7 +57,7 @@ describe('GmFormComponent', () => {
   it('should render the form fields', () => {
     const compiled = fixture.nativeElement;
     const inputElements = compiled.querySelectorAll('input');
-    expect(inputElements.length).toBe(2); // Two visible fields: 'name' and 'email'
+    expect(inputElements.length).toBe(3); // Two visible fields: 'name' and 'email' and 'checkbox'
   });
 
   it('should validate mandatory fields', () => {
@@ -67,8 +67,8 @@ describe('GmFormComponent', () => {
     expect(nameControl.valid).toBeFalsy();
     expect(emailControl.valid).toBeFalsy();
 
-    nameControl.setValue('John Doe');
-    emailControl.setValue('john@example.com');
+    nameControl.setValue('name');
+    emailControl.setValue('behnam@example.com');
 
     expect(nameControl.valid).toBeTruthy();
     expect(emailControl.valid).toBeTruthy();
@@ -83,14 +83,14 @@ describe('GmFormComponent', () => {
   it('should log form data on submit', () => {
     spyOn(console, 'log');
     component.form.patchValue({
-      name: 'John Doe',
-      email: 'john@example.com',
+      name: 'name',
+      email: 'behnam@example.com',
       confirm: true
     });
     component.onSubmit();
     expect(console.log).toHaveBeenCalledWith('Form data:', {
-      name: 'John Doe',
-      email: 'john@example.com',
+      name: 'name',
+      email: 'behnam@example.com',
       confirm: true
     });
   });
