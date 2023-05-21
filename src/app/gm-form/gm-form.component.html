@@ -1,0 +1,21 @@
+<form class="flex align-items-center gap-1" *ngIf="formData" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div *ngFor="let data of formData">
+    <div *ngIf="data.hidden === FormHidden.false">
+      <ng-container [ngSwitch]="data.type">
+        <div *ngSwitchCase="FormType.text" class="flex flex-column gap-2">
+          <label *ngIf="data.label">{{ data.label }}</label>
+          <input pInputText type="text" [formControlName]="data.field" />
+          <small *ngIf="isFieldInvalid(data.field)" style="color: red">Validation Failed for this input</small>
+        </div>
+        <div *ngSwitchCase="FormType.check" class="flex align-items-center gap-1">
+          <label *ngIf="data.label">
+            <input type="checkbox" [formControlName]="data.field">
+            {{ data.label }}
+          </label>
+          <small *ngIf="isFieldInvalid(data.field)" style="color: red">Validation Failed for this input</small>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <p-button type="submit">Submit</p-button>
+</form>
